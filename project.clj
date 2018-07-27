@@ -4,8 +4,15 @@
   :license {:name "MIT"
             :url "https://github.com/PacktPublishing/Clojure-Programming-Projects/blob/master/LICENSE"}
 
+  :aliases
+  {"rebl" ["trampoline" "run" "-m" "rebel-readline.main"]
+   "fetcher" ["trampoline" "run" "-m" "cpp.fetcher.core"]}
+
   :dependencies
   [[org.clojure/clojure "1.9.0"]
+   [com.bhauman/rebel-readline "0.1.4"]
+   [cheshire "5.8.0"]
+   ;---
    [org.clojure/clojurescript "1.10.238"
     :exclusions [[com.google.guava/guava]]]
    [org.clojure/core.async "0.4.474"]
@@ -73,15 +80,17 @@
 
   :source-paths ["src"]
 
-  :profiles {:dev {:dependencies [[org.clojure/tools.namespace "0.2.11"]
-                                  [ring/ring-mock "0.3.2"]
-                                  [binaryage/devtools "0.9.2"]
-                                  [figwheel-sidecar "0.5.16"]
-                                  [com.cemerick/piggieback "0.2.1"]]
-                   :source-paths ["src" "dev"]
-                   ;; for CIDER
-                   ;; :plugins [[cider/cider-nrepl "0.12.0"]]
-                   :repl-options {:init (set! *print-length* 50)
-                                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
+  :profiles
+  {:dev
+   {:dependencies [[org.clojure/tools.namespace "0.2.11"]
+                   [ring/ring-mock "0.3.2"]
+                   [binaryage/devtools "0.9.2"]
+                   [figwheel-sidecar "0.5.16"]
+                   [com.cemerick/piggieback "0.2.1"]]
+    :source-paths ["src" "dev"]
+    ;; for CIDER
+    ;; :plugins [[cider/cider-nrepl "0.12.0"]]
+    :repl-options {:init (set! *print-length* 50)
+                   :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
 
   :min-lein-version "2.7.1")

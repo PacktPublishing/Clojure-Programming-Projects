@@ -1,35 +1,64 @@
 # Chapter 1
 
-### What we're going to build.
+## What we're going to build.
 
 A command line data fetcher.
 
-### What you need to know.
+## What you need to know.
 
-- REPL expressions will not evaluate if parens mismatch.
+- REPL expressions will not evaluate if parens mismatch, you'll get a newline until they match, or you can `CTRL-C` to get a fresh prompt.
 - Visually checking clojure expressions is challenging at the beginning. It'll become a second nature if you do your workout. It reads inside-out.
+- Editing clojure files without the help of a structural editing tool (Parinfer or Paredit) is cumbersome. The management can't be held responsible for code breakage if you don't use one.
 - Don't freak at the stack trace, you'll see parsecs of them. We'll dive into common errors along the way.
 - If you get stuck, just hit `CTRL-D` to exit the current REPL, or just close your terminal. And start gain.
 
-### What you need to have.
+## Getting started.
 
 [TODO]
 
 ### Using an external library
 
-[TODO]
+Before we start let's add a dependency to our project.
+We'll use `cheshire` to parse JSON into EDN (more on this later).
+Open `project.clj` and add the following coordinates to the `:dependencies` vector:
+```clj
+(defproject cpp "0.1.0-SNAPSHOT"
+  :description "Code for the book Clojure Programming Projects"
 
-### Parsing JSON from a web endpoint:
+[...]
+
+  :dependencies
+  [[org.clojure/clojure "1.9.0"]
+   [cheshire "5.8.0"] ; <-- insert this line
+
+[...]
+```
+Save your changes.
+
+[HINT] Modifications to the `project.clj` file require a fresh start to pick up the changes.
 
 Start a REPL session (always from the main project folder).
 ```sh
 $ lein repl
+nREPL server started on port 52812 on host 127.0.0.1 - nrepl://127.0.0.1:52812
+REPL-y 0.3.7, nREPL 0.2.12
+Clojure 1.9.0
+Java HotSpot(TM) 64-Bit Server VM 1.8.0_131-b11
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+    Exit: Control+D or (exit) or (quit)
+ Results: Stored in vars *1, *2, *3, an exception in *e
+
+user=>
 ```
+
+### Parsing JSON from a web endpoint:
 
 Get the JSON data from https://min-api.cryptocompare.com public API.
 ```clj
-user=> (slurp "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsym
-s=USD,JPY,EUR")
+user=> (slurp "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR")
 "{\"USD\":7314.26,\"JPY\":852240.67,\"EUR\":6235.53}"
 ```
 [EXPLAIN]
@@ -54,9 +83,9 @@ nil
 
 Done!
 
-[EXPLAIN]
-
 [Outcome] You have written your first useful clojure program, using only three functions.
+
+[EXPLAIN]
 
 [HINT] `edn` is clojure data in text form. because code is data is code is..., _clojure code is itself valid edn_.
 
@@ -66,10 +95,14 @@ Done!
 
 ### Calling a program.
 
+First we'll make a fresh namespace (a clojure module) for our program.
+
+Create a file `src/cpp/fetcher/core.clj`.
+
 Create a main entry point:
 ```clj
-;;src/cpp/main.clj
-(ns cpp.main)
+;;src/cpp/fetcher/core.clj
+(ns cpp.fetcher.core)
 
 (defn -main [& args]
   (println "My main.")
@@ -77,56 +110,41 @@ Create a main entry point:
 ```
 [EXPLAIN]
 
-Add a `:main` alias to your `deps.edn`:
+Add a `fetcher` alias to your `project.clj`:
 ```clj
-;;/deps.edn
-{:deps
- ;...
- :aliases
+;;project.clj
+(defproject cpp "0.1.0-SNAPSHOT"
 
- {:figwheel
-  {:main-opts
-   ["-m" "figwheel.main" "-b" "fig" "-r"]
-  ;...
-  :main
-  {:main-opts
-   ["-m" "cpp.main"]}
-  ;...
-```
-[EXPLAIN]
+[...]
 
-Create (or copy from `repl.sh`) a shell script to start the docker runtime and run your alias `main`:
+  :aliases
+  {"rebl" ["trampoline" "run" "-m" "rebel-readline.main"]
+   "fetcher" ["trampoline" "run" "-m" "cpp.fetcher.core"]} ; <--- added
 
-```sh
-#/main.sh
+  :dependencies
+  [[org.clojure/clojure "1.9.0"]
 
-docker run -i -t\
-       -v `pwd`/rt/data:/root\
-       -v `pwd`/.:/cpp\
-       -w /cpp\
-       cpp/clj\
-       clojure -A:main
-
+[...]
 ```
 [EXPLAIN]
 
 Try it:
 ```sh
-$ sh main.sh
+$ lein fetcher
 My main.
 ```
 
-In the `cpp.main` namespace, write a function that _automates_ your previous session at the REPL:
+Write a function that _automates_ your previous session at the REPL:
 ```clj
-;;src/cpp/main.clj
-(ns cpp.main
+;;src/cpp/fetcher/core.clj
+(ns cpp.fetcher.core
   (:require [cheshire.core :as json]))
 
 (defn get-coin-price
   "Get price data for sym, save it to <sym>_price.edn"
   [sym]
   (spit
-   (str "resources/public/"
+   (str "resources/public/data/"
         sym "_price.edn")
    (json/parse-string
     (slurp
@@ -134,8 +152,9 @@ In the `cpp.main` namespace, write a function that _automates_ your previous ses
           sym "&tsyms=USD,JPY,EUR")))))
 
 (defn -main [& args]
+  (.mkdir (java.io.File. "resources/public/data"))
   (get-coin-price "BTC")
-  (println (slurp (str "resources/public/" "BTC" "_price.edn")))
+  (println (slurp (str "resources/public/data/" "BTC" "_price.edn")))
   0)
 ```
 [EXPLAIN]
@@ -152,10 +171,10 @@ Open and check `resources/public/ETH_price.edn`.
 
 [HINT] Requiring namespaces is a bit different at the REPL and in the source code. Spot the differences? Here you have an example of reloading the namespace code, and using an alias `m`.
 
-Try your program:
+Try your main program:
 ```sh
-$ rm resources/public/*_price.edn
-$ sh main.sh
+$ rm -rf resources/public/data
+$ lein fetcher
 {"USD" 7965.93, "JPY" 922665.71, "EUR" 6806.64}
 ```
 
