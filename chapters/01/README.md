@@ -144,7 +144,7 @@ Write a function that _automates_ your previous session at the REPL:
   "Get price data for sym, save it to <sym>_price.edn"
   [sym]
   (spit
-   (str "resources/public/data/"
+   (str "resources/public/data/" ; into `data` folder
         sym "_price.edn")
    (json/parse-string
     (slurp
@@ -161,19 +161,19 @@ Write a function that _automates_ your previous session at the REPL:
 
 Try your function at the REPL:
 ```clj
-user=> (require '[cpp.main :as m :reload true])
+user=> (require '[cpp.fetcher.core :as m :reload true])
 nil
 user=> (m/get-coin "ETH")
 nil
 ```
-Open and check `resources/public/ETH_price.edn`.
+Open and check `resources/public/data/ETH_price.edn`.
 [EXPLAIN]
 
 [HINT] Requiring namespaces is a bit different at the REPL and in the source code. Spot the differences? Here you have an example of reloading the namespace code, and using an alias `m`.
 
 Try your main program:
 ```sh
-$ rm -rf resources/public/data
+$ rm resources/public/data/*
 $ lein fetcher
 {"USD" 7965.93, "JPY" 922665.71, "EUR" 6806.64}
 ```
