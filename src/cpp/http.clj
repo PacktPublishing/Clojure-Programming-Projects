@@ -1,10 +1,12 @@
 (ns cpp.http
   (:require
+   [cpp.webserver.core :as webserver]
    [cpp.db :as db]
    [cpp.api :as api]
    [clojure.pprint :refer [pprint]]
    [clojure.core.async :as async
     :refer [put! <! <!! chan go go-loop thread close!]]
+   [org.httpkit.server :as kit]
    [ring.middleware.defaults :refer [wrap-defaults api-defaults site-defaults]]
    [ring.middleware.keyword-params :refer [wrap-keyword-params]]
    [ring.middleware.params :refer [wrap-params]]
@@ -95,6 +97,7 @@
 ; Routes
 
 (defroutes www
+  (GET "/BTC" req (#'webserver/handle-BTC req))
   (GET "/status" req (#'handle-status req))
   (GET "/req" req (str "<pre>" (with-out-str (pprint req)) "</pre>"))
   (wrap-routes (resources "/js") wrap-file-etag)
@@ -126,3 +129,11 @@
    (wrap-routes www wrap-defaults site-defaults)))
 
 ;;;
+
+(defn -main
+  "Runs the server. If SERVER_PORT isn't set a environment variable,
+  8080 is used as default."
+  [& args]
+  (let [port (Integer/parseInt (or (System/getenv "SERVER_PORT") "8080"))]
+    (println "Starting server on port" port "...")
+    (kit/run-server (wrap-reload dev-handler) {:port port})))

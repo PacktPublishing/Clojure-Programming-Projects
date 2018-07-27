@@ -6,12 +6,14 @@
 
   :aliases
   {"rebl" ["trampoline" "run" "-m" "rebel-readline.main"]
-   "fetcher" ["trampoline" "run" "-m" "cpp.fetcher.core"]}
+   "fetcher" ["trampoline" "run" "-m" "cpp.fetcher.core"]
+   "devsrv" ["trampoline" "run" "-m" "cpp.http"]}
 
   :dependencies
   [[org.clojure/clojure "1.9.0"]
    [com.bhauman/rebel-readline "0.1.4"]
    [cheshire "5.8.0"]
+   [http-kit "2.3.0"]
    ;---
    [org.clojure/clojurescript "1.10.238"
     :exclusions [[com.google.guava/guava]]]

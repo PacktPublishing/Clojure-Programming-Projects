@@ -18,42 +18,46 @@ Create a Ring handler and give it a route.
 
 Create a namespace for your web handlers, and write the first one:
 ```clj
-;;src/cpp/handlers.clj
-(ns cpp.handlers
-  (:require [cheshire.core :as json]))
+;;src/cpp/webserver/core.clj
+(ns cpp.webserver.core)
 
 (defn handle-BTC
   "Takes a ring request map and returns a ring response map."
   [req]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body (slurp "resources/public/BTC_price.edn")})
+   :body (slurp "resources/public/data/BTC_price.edn")})
 ```
 [EXPLAIN]
 
-Add a route to your handler in the `cpp.server` namespace, where `www` routes are defined (you need to require your handlers namespace):
+Open the file `src/cpp/http.clj`.
+
+First, require your webserver namespace:
 ```clj
-;;src/cpp/server.clj
-(ns cpp.server
+;;src/cpp/http.clj
+(ns cpp.http
   (:require
-   [cpp.handlers :as handlers] ;insert this line
+   [cpp.webserver.core :as webserver] ; <-- add this line
    ;... leave the rest as is
 ; ...
-
+```
+Then add a route to your handler in the `cpp.http` namespace, where `www` routes are defined:
+```
 ;====================================
 ; Routes
 
 (defroutes www
-  (GET "/BTC" req (#'handlers/handle-BTC req) ; insert this line, note the `#'` bit
+  (GET "/BTC" req (#'webserver/handle-BTC req) ; insert this line, note the `#'` bit
   ; ... )
 
 ```
+Save your files.
+
 [EXPLAIN]
 
 From another terminal, start a development server:
 ```sh
-$ cd cpp
-$ sh dev-srv.sh
+$ lein devsrv
 Starting server on port 8080 ...
 ```
 
@@ -61,13 +65,13 @@ Browse to: http://localhost:8080/BTC.
 You should see the BTC prices.
 [EXPLAIN]
 
-[Outcome]: You have just written your first dynamic web app.
+[Outcome]: You have just served your first dynamic web page using clojure.
 
 ### Hot code reloading.
 
 Now, change your handler, enclose the data string within a html tag:
 ```clj
-;;src/cpp/handlers.clj
+;;src/cpp/webserver/core.clj
    ;...
    :body (str
           "<pre>"
