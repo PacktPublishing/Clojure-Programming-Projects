@@ -1,8 +1,8 @@
 (defproject cpp "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :description "Code for the book Clojure Programming Projects"
+  :url "https://github.com/PacktPublishing/Clojure-Programming-Projects"
+  :license {:name "MIT"
+            :url "https://github.com/PacktPublishing/Clojure-Programming-Projects/blob/master/LICENSE"}
 
   :dependencies
   [[org.clojure/clojure "1.9.0"]

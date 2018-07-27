@@ -18,15 +18,7 @@
   ""
   (html
    [:div
-    [:h1 "Full Stack DataLog"]
-    [:p {:class "lead"}
-     [:span {:class "h1"} "H"] "ow might we leverage on"
-      [:i " DataScript * Datomic "] "synergies to provide a dynamic development workflow,
-      reduce time to market, and fuel a zero-waiting, scalable user experience."]
-    [:ol
-     [:li {:class "h3"} [:a {:href "/cards.html#!/cpp.btf_1"} "Back To Front"]]
-     [:li {:class "h3"} [:a {:class "h3":href "/cards.html#!/cpp.ftb_1"} "Front To Back"]]
-     [:li {:class "h3"} [:a {:class "h3":href "/cards.html#!/cpp.ete_1"} "End To End"]]]]))
+    [:h1 "CPP"]]))
 
 ;;;;;
 
