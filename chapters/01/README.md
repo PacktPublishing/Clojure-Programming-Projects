@@ -179,3 +179,11 @@ $ lein fetcher
 ```
 
 [Outcome] You have written your first command line program.
+
+## The Project
+
+Complete the coin data fetcher:
+- aggregate all available coin data into one file per coin (see data description below)
+- pass coin symbol argument to the command line
+- deal with possible errors
+- make the files human-readable (using `pprint`)
