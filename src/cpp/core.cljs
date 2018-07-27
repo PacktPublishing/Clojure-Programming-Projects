@@ -1,11 +1,5 @@
 (ns cpp.core
   (:require
-   cpp.btf-1
-   cpp.btf-2
-   cpp.ftb-1
-   cpp.ftb-2
-   cpp.ete-1
-   cpp.ete-2
    [sablono.core :refer [html] :include-macros true]
    [devcards.core :refer [defcard defcard-rg deftest] :include-macros true]))
 
