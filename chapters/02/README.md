@@ -63,6 +63,7 @@ Starting server on port 8080 ...
 
 Browse to: http://localhost:8080/BTC.
 You should see the BTC prices.
+
 [EXPLAIN]
 
 [Outcome]: You have just served your first dynamic web page using clojure.

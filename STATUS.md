@@ -2,11 +2,9 @@
 
 This is the status of the code base, for book content check CDP.
 
-### TODO
+Chapter notes MDs are in the `chapters` subfolders.
 
-- Port existing to new project setup
-- Adjust main README
-- Move out unrelated code
+## TODO
 
 ## Chapters
 
@@ -19,8 +17,10 @@ WIP: project content
 ### Chapter 2
 
 DONE: getting started
-WIP: adjust to lein project setup
+DONE: adjust to lein project setup
+WIP: project content
 
 ### Chapter 3
 
 DONE: figwheel/devcards setup
+TODO: getting started
