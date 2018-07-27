@@ -2,15 +2,13 @@
 
 ### What we're going to build.
 
-Our development web server, with _reloaded_ sweetness.
+The Coins web server.
 
 ### What you need to know.
 
-- The server runs on the main thread, blocking the terminal. We can nREPL into this process and examine/change stuff, run tests, and more.
-
-### What you need to have.
-
 [TODO]
+
+## Getting started.
 
 ### Serving data on the web.
 
