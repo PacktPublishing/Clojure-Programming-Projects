@@ -27,6 +27,8 @@ $ lein repl
 
 ## Hack a project
 
+[TODO] implement the scripts
+
 Run the `chapters/<ch>/start.sh` script, where <ch> is the chapter number (01, 02, ...):
 ```bash
 $ cd chapters/02
