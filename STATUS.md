@@ -10,17 +10,17 @@ Chapter notes MDs are in the `chapters` subfolders.
 
 ### Chapter 1
 
-DONE: adjust to lein project setup
-DONE: getting started
-WIP: project content
+- DONE: adjust to lein project setup
+- DONE: getting started
+- WIP: project content
 
 ### Chapter 2
 
-DONE: getting started
-DONE: adjust to lein project setup
-WIP: project content
+- DONE: getting started
+- DONE: adjust to lein project setup
+- WIP: project content
 
 ### Chapter 3
 
-DONE: figwheel/devcards setup
-TODO: getting started
+- DONE: figwheel/devcards setup
+- TODO: getting started
