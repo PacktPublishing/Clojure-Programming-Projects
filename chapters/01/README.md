@@ -73,7 +73,7 @@ price?fsym=BTC&tsyms=USD,JPY,EUR"))
 ```
 [EXPLAIN]
 
-Save clojure data to a file.
+Save clojure data to an EDN file.
 ```clj
 user=> (spit "resources/public/BTC_price.edn" (json/parse-string (slurp "
 https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR")
@@ -93,7 +93,7 @@ Done!
 
 
 
-### Calling a program.
+### Running a clojure program using `Leiningen`.
 
 First we'll make a fresh namespace (a clojure module) for our program.
 
