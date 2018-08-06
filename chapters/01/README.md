@@ -183,7 +183,7 @@ $ lein fetcher
 ## The Project
 
 Complete the coin data fetcher:
-- aggregate all available coin data into one file per coin (see data description below)
+- aggregate top 10 coins data into one file per coin (see model description below)
 - pass coin symbol argument to the command line
 - deal with possible errors
 - make the files human-readable (using `pprint`)
