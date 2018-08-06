@@ -6,15 +6,33 @@ A command line data fetcher.
 
 ## What you need to know.
 
-- Visually checking clojure expressions is challenging at the beginning. It'll become a second nature if you do your workout. Clojure (and LISPs) reads inside-out rather than line by line..
-- Editing clojure files without the help of a structural editing tool (Parinfer or Paredit) is next to cumbersome. The management can't be held responsible for code breakage if you don't use a proper editor setup.
-- expressions typed at the REPL will not evaluate if parens do not match. Upon pressing `ENTER`, you'll get a newline instead of evaluating. You can `CTRL-C` to discard the current expression and get a fresh prompt.
-- If you get stuck, hit `CTRL-C` to discard the current expression, or `CTRL-D` to exit the current REPL, or just close your terminal. And start gain.
-- Don't freak about stack traces, you'll see parsecs of them. We'll dive into common errors along the way.
+We are starting easy, but you should possess a _minimal_ knowledge of Clojure. You don't need to be actually _mastering_ any Clojure concept to follow along, but you will definitely feel lost if the following sounds totally alien to you:
+
+- bindings and functions: `let`, `def`, `defn`, `fn`, lambda form, eg. `#(+ %1 %2)`.
+- basic types: `string`, `integer` and `float` numbers, `boolean`, `nil` and the concept of `truthy`.
+- compound types: `list`, `vector`, `hashmap`, `()`, `[]` and `{}` literals, the `sequence` abstraction, and basic operations (`first`, `rest`, `nth`, `conj`, `assoc`, `update`, `into`, `map`, `filter`, `reduce`, ...).
+- a touch of `destructuring` will help a lot in understanding code written by others.  
+- basic `leiningen` project layout and `namespaces`.
+
+There are countless resources on the web (search for "clojure _<X>_" where _<X>_ is one of the above terms), and many A-to-Z Clojure books to get you started (some even are online and free). Limit yourself to the above concepts, so you'll be back and ready-set within a couple of hours at most. Remember: you don't need to know everything of Clojure to build useful programs!
+
+Here's a few pointers:
+
+[TODO]
+
+Also, please read this before trying Clojure at home:
+
+- Reading clojure expressions is challenging at the beginning. It'll _quickly_ become a second nature if you do your workout, and the payoff is well worth the effort.
+- Clojure (as all LISPs) mostly reads inside-out rather than line by line.
+- Editing clojure files without the help of a structural editing tool (Parinfer or Paredit) is not good for mental health. The management can't be held responsible for nervous breakages due to lack of proper editor setup.
+- Do not try to setup or customise your own IDE if you are new to Clojure. By the time you are done with your awesome config, those using the provided setup will have finished the book.
+- Expressions typed at the REPL will not evaluate if parens do not match. Upon pressing `ENTER`, you'll get a newline instead of evaluating.
+- If you get stuck, hit `CTRL-C` to try to discard the current expression, or `CTRL-D` to exit the current REPL, or just close your terminal, and happily start gain.
+- Don't freak about stack traces, you'll see parsecs of them. We'll see and explain common errors along the way.
 
 ## Getting started.
 
-[TODO]
+At this point, we assume your environment and your editor are correctly setup (see `SETUP.md`). You should be able to start a REPL session from the main project folder.
 
 ### Using an external library
 
@@ -37,7 +55,7 @@ Save your changes.
 
 [HINT] Modifications to the `project.clj` file require a fresh start to pick up the changes.
 
-Start a REPL session (always from the main project folder).
+Start a REPL session (the banner text may vary).
 ```sh
 $ lein repl
 nREPL server started on port 52812 on host 127.0.0.1 - nrepl://127.0.0.1:52812
