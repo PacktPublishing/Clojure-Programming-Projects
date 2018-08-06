@@ -10,7 +10,7 @@ A command line data fetcher.
 - Visually checking clojure expressions is challenging at the beginning. It'll become a second nature if you do your workout. It reads inside-out.
 - Editing clojure files without the help of a structural editing tool (Parinfer or Paredit) is cumbersome. The management can't be held responsible for code breakage if you don't use one.
 - Don't freak at the stack trace, you'll see parsecs of them. We'll dive into common errors along the way.
-- If you get stuck, just hit `CTRL-D` to exit the current REPL, or just close your terminal. And start gain.
+- If you get stuck, hit `CTRL-C` to discard the current expression, or `CTRL-D` to exit the current REPL, or just close your terminal. And start gain.
 
 ## Getting started.
 
