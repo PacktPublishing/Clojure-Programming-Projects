@@ -89,7 +89,7 @@
                    [binaryage/devtools "0.9.2"]
                    [figwheel-sidecar "0.5.16"]
                    [com.cemerick/piggieback "0.2.1"]]
-    :source-paths ["src" "dev"]
+    :source-paths ["src" "dev" "test/clj"]
     ;; for CIDER
     ;; :plugins [[cider/cider-nrepl "0.12.0"]]
     :repl-options {:init (set! *print-length* 50)

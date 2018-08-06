@@ -10,7 +10,8 @@ We are starting easy, but you should possess a _minimal_ knowledge of Clojure. Y
 
 - bindings and functions: `let`, `def`, `defn`, `fn`, lambda form, eg. `#(+ %1 %2)`.
 - basic types: `string`, `integer` and `float` numbers, `boolean`, `nil` and the concept of `truthy`.
-- compound types: `list`, `vector`, `hashmap`, `()`, `[]` and `{}` literals, the `sequence` abstraction, and basic operations (`first`, `rest`, `nth`, `conj`, `assoc`, `update`, `into`, `map`, `filter`, `reduce`, ...).
+- compound types: `list`, `vector`, `hashmap`, `()`, `[]` and `{}` literals, the `sequence` abstraction, and basic operations (`first`, `rest`, `nth`, `conj`, `assoc`, `update`, `keys`, `vals`, `select-keys`, `into`, `map`, `filter`, `reduce`, ...).
+- threading macros: `->`, `->>`, `as->`.
 - a touch of `destructuring` will help a lot in understanding code written by others.  
 - basic `leiningen` project layout and `namespaces`.
 
