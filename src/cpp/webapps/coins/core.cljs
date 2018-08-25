@@ -1,7 +1,8 @@
 (ns cpp.webapps.coins.core
   (:require
-   [cljs-http.client :as http]
    [clojure.core.async :refer [go <!] :include-macros true]
+   [clojure.pprint :refer [pprint]]
+   [cljs-http.client :as http]
    [sablono.core :refer [html] :include-macros true]
    [devcards.core :refer [defcard] :include-macros true]))
 
@@ -23,9 +24,9 @@
   "# Data in store"
   (fn [store]
     (html
-     [:pre (str @store)]))
-  store-coins
-  {:inspect-data true})
+     [:pre (with-out-str (pprint @store))]))
+  store-coins)
+  ; {:inspect-data true})
 
 ;;;
 
