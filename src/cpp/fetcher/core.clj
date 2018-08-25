@@ -19,19 +19,19 @@
     "&extraParams="
     (URLEncoder/encode "Packt Publishing - Clojure Programming Projects" "UTF-8")))
 
-(defn- coin-info
-  "Extract coin info from raw coin data.
-   raw-coin: a map containing raw coin data.
-   return: a map with keys :symbol, :full-name, :image-url, :algorithm, :proof-type."
-  [raw-coin]
-  (-> raw-coin
-      (get "CoinInfo")
-      (select-keys ["Name" "FullName" "ImageUrl" "Algorithm" "ProofType"])
-      (set/rename-keys {"Name" :symbol
-                        "FullName" :full-name
-                        "ImageUrl" :image-url
-                        "Algorithm" :algorithm
-                        "ProofType" :proof-type})))
+; (defn- coin-info
+;   "Extract coin info from raw coin data.
+;    raw-coin: a map containing raw coin data.
+;    return: a map with keys :symbol, :full-name, :image-url, :algorithm, :proof-type."
+;   [raw-coin]
+;   (-> raw-coin
+;       (get "CoinInfo")
+;       (select-keys ["Name" "FullName" "ImageUrl" "Algorithm" "ProofType"])
+;       (set/rename-keys {"Name" :symbol
+;                         "FullName" :full-name
+;                         "ImageUrl" :image-url
+;                         "Algorithm" :algorithm
+;                         "ProofType" :proof-type})))
 
 (defn coin-history
   "Fetch daily historical data for a coin.
@@ -71,17 +71,17 @@
                                                "ImageUrl" :image-url
                                                "Algorithm" :algorithm
                                                "ProofType" :proof-type})))]
-    (->> raw-data
-         (map extract)
-         (map #(assoc % :history (coin-history (:symbol %)))))))
+    (map extract raw-data)))
 
 (defn coins->files!
   [coins]
   (doseq [coin coins]
     (let [sym (:symbol coin)
-          file-name (format "resources/public/data/%s.edn" sym)
-          content (with-out-str (pprint coin))]
+          history (coin-history sym)
+          file-name (format "resources/public/data/%s_history.edn" sym)
+          content (with-out-str (pprint history))]
       (spit file-name content)))
+  (spit "resources/public/data/coins.edn" (with-out-str (pprint coins)))
   nil)
 
 (defn get-coin-price
