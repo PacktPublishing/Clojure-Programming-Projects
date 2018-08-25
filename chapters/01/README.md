@@ -202,7 +202,7 @@ $ lein fetcher
 ## The Project
 
 Based on the previous work, complete the coin data fetcher:
-- consolidate the top 10 coins available data into one file per coin (see data model description below)
-- pass the coin symbol argument to the command line
-- deal with possible errors
+- save the top `N` coins info in one file
+- save each coin history data in a separate file
+- pass the the `N` argument to the command line
 - make the files human-readable (using `pprint`).

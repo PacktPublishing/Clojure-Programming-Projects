@@ -2,7 +2,7 @@
 
 ### What we're going to build.
 
-Coins web UI.
+Interactive functional UI.
 
 ### What you need to know.
 
@@ -10,4 +10,4 @@ Coins web UI.
 
 ## The project
 
-- View coin data using ReactJS UI components.
+- Interact with web server using functional UI.
