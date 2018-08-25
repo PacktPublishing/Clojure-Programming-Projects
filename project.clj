@@ -12,12 +12,12 @@
 
   :dependencies
   [[org.clojure/clojure "1.9.0"]
-   ; [org.clojure/clojurescript "1.10.238"
+   [org.clojure/clojurescript "1.10.238"]
    ;  :exclusions [[com.google.guava/guava]]]
    ; [org.clojure/core.async "0.4.474"]
    ;---
-   [clj-time "0.14.4"]
-   [cheshire "5.8.0"]]
+   ; [clj-time "0.14.4"]
+   ; [cheshire "5.8.0"]
    ; [com.taoensso/sente "1.12.0"]
    ; [com.taoensso/timbre "4.10.0"]
    ; [http-kit "2.3.0"]
@@ -30,12 +30,12 @@
    ; [com.datomic/datomic-free "0.9.5697"]
    ; [danlentz/clj-uuid "0.1.7"]
    ; ;---
-   ; [devcards "0.2.4"]
-   ; [sablono "0.8.4"]
-   ; [cljsjs/react "16.3.0-1"]
-   ; [cljsjs/react-dom "16.3.0-1"]
+   [devcards "0.2.4"]
+   [sablono "0.8.4"]
+   [cljsjs/react "16.3.0-1"]
+   [cljsjs/react-dom "16.3.0-1"]
    ; [datascript "0.16.6"]
-   ; [cljs-http "0.1.44"]
+   [cljs-http "0.1.44"]]
    ; [camel-snake-kebab "0.4.0"]]
 
   ; :managed-dependencies
@@ -44,30 +44,30 @@
   ; :exclusions
   ; [com.google.errorprone/error_prone_annotations]
 
-  ; :figwheel
-  ; {:css-dirs ["resources/public/css"]
-  ;  :ring-handler cpp.http/dev-handler
-  ;  ; :server-port 3450
-  ;  :nrepl-port 7888}
+  :figwheel
+  {:css-dirs ["resources/public/css"]}
+   ; :ring-handler cpp.cogs.http/dev-handler}
+   ; :server-port 3450
+   ; :nrepl-port 7888}
 
-  ; :cljsbuild
-  ; {:builds
-  ;  [{:id "devcards"
-  ;    :source-paths ["src"]
-  ;    :figwheel {:devcards true}
-  ;    :compiler {:main       "cpp.core"
-  ;               :asset-path "js/compiled/devcards_out"
-  ;               :output-to  "resources/public/js/compiled/cpp_devcards.js"
-  ;               :output-dir "resources/public/js/compiled/devcards_out"
-  ;               :source-map-timestamp true}}
-  ;   {:id "dev"
-  ;    :source-paths ["src"]
-  ;    :figwheel true
-  ;    :compiler {:main       "cpp.core"
-  ;               :asset-path "js/compiled/out"
-  ;               :output-to  "resources/public/js/compiled/cpp.js"
-  ;               :output-dir "resources/public/js/compiled/out"
-  ;               :source-map-timestamp true}}
+  :cljsbuild
+  {:builds
+   [{:id "coins-cards"
+     :source-paths ["src/cpp/webapps/coins"]
+     :figwheel {:devcards true}
+     :compiler {:main       "cpp.webapps.coins.core"
+                :asset-path "js/compiled/coins/cards_out"
+                :output-to  "resources/public/js/compiled/cpp_cards.js"
+                :output-dir "resources/public/js/compiled/coins/cards_out"
+                :source-map-timestamp true}}]}
+    ; {:id "dev"
+    ;  :source-paths ["src"]
+    ;  :figwheel true
+    ;  :compiler {:main       "cpp.core"
+    ;             :asset-path "js/compiled/out"
+    ;             :output-to  "resources/public/js/compiled/cpp.js"
+    ;             :output-dir "resources/public/js/compiled/out"
+    ;             :source-map-timestamp true}}]}
   ;   {:id "prod"
   ;    :source-paths ["src"]
   ;    :compiler {:main       "cpp.core"
@@ -75,8 +75,8 @@
   ;               :output-to  "resources/public/js/compiled/cpp.js"
   ;               :optimizations :advanced}}]}
 
-  ; :plugins [[lein-figwheel "0.5.16"]
-  ;           [lein-cljsbuild "1.1.5" :exclusions [org.clojure/clojure]]]
+  :plugins [[lein-figwheel "0.5.16"]
+            [lein-cljsbuild "1.1.5" :exclusions [org.clojure/clojure]]]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                     "target"]
