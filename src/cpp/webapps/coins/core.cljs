@@ -12,13 +12,19 @@
           (vec (:body (<! (http/get "/data/coins.edn"))))))
   nil)
 
+(defonce store-coins
+  (let [s (atom {})]
+    (fetch-coins! s)
+    s))
+
+;;;
+
 (defcard
   "# Data in store"
   (fn [store]
-    (fetch-coins! store)
     (html
      [:pre (str @store)]))
-  {}
+  store-coins
   {:inspect-data true})
 
 ;;;
@@ -39,10 +45,9 @@
 (defcard
   "# List"
   (fn [store]
-    (fetch-coins! store)
     (let [{:keys [coins]} @store]
       (coins-ul coins)))
-  {})
+  store-coins)
 
 ;;;
 
@@ -59,22 +64,21 @@
                   :width 24
                   :height 24}]]
                   ; :style {:margin 4}}]]
-      [:td full-name] [:td symbol]
-      [:td algorithm] [:td proof-type]])))
+      [:td symbol] [:td full-name]])))
+      ; [:td algorithm] [:td proof-type]])))
 
 (defn coins-table
   [coins]
   (html
    [:table {:class "table table-striped table-condensed"}
-    [:thead [:tr [:th ""] [:th "Name"] [:th "Symbol"]
-                 [:th "Algorithm"] [:th "Proof Type"]]]
+    ; [:thead [:tr [:th ""] [:th "Symbol"] [:th "Name"]]]
+                 ; [:th "Algorithm"] [:th "Proof Type"]]]
     [:tbody
      (map coins-row coins)]]))
 
 (defcard
   "# Table"
   (fn [store]
-    (fetch-coins! store)
     (let [{:keys [coins]} @store]
       (coins-table coins)))
-  {})
+  store-coins)
