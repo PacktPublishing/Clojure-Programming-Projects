@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java -jar /usr/local/bin/fetch-cc-data-distrib/fetch-cc-data-0.1.0.jar
