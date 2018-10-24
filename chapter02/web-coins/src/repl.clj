@@ -64,12 +64,12 @@
    (server/with-channel req channel
      (server/on-close channel (fn [status] (println "channel closed, " status)))
      (loop [id 0]
-       (when (< id 10)
+       (when (< id 1000)
          (timer/schedule-task
           (* id 200) ;; send a message every 200ms
-          (server/send! channel (str "message from server #" id) false)) ; false => don't close after send
+          (server/send! channel (str "Tick from server #" id) false)) ; false => don't close after send
          (recur (inc id))))
-     (timer/schedule-task 10000 (server/close channel)))) ;; close in 10s.
+     (timer/schedule-task 100000 (server/close channel)))) ;; close in 100s.
 
  (stop)
 

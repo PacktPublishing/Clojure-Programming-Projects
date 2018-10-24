@@ -13,5 +13,5 @@
 (defn page-home
   [_]
   (page
-   [:h1 "Hotty Page"]
+   [:h1 "Ticking Home Page"]
    [:h2#ticker "Ticker"]))
