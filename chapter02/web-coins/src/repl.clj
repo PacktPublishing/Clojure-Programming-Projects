@@ -115,7 +115,21 @@
       (wrap-hello)))
 (shout-bang-hello "world")
 
-(defn divide [a b] ())
+(defn increase [n] (inc n))
+(defn wrap-divide-by-2 [f]
+  (fn [n] (/ (apply f [n]) 2)))
+(defn wrap-substract-one [f]
+  (fn [n] (- (apply f [n]) 1)))
+(def inc-div-sub
+  (-> increase
+      (wrap-divide-by-2)
+      (wrap-substract-one)))
+(def inc-sub-div
+  (-> increase
+      (wrap-substract-one)
+      (wrap-divide-by-2)))
+(inc-div-sub 4)
+(inc-sub-div 4)
 
 
 
