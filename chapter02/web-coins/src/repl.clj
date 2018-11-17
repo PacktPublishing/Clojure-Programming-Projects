@@ -139,29 +139,34 @@
 (def stop (server/run-server (wrap-reload webapp) {:port 8080}))
 
 ;;;ws
+(def js-ws
+  "var tickerSocket = new WebSocket('ws://localhost:8080/ticker');
+   tickerSocket.onmessage = function (event) {
+     var e = document.getElementById('ticker');
+     e.textContent = event.data;
+     console.log(event.data);
+   }")
+(defn handle-page
+  [_]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body (html [:h1#ticker "No SSE"][:script js-ws])})
 (require '[org.httpkit.timer :as timer])
 (defn handle-ticker
   [req]
   (server/with-channel req channel
-    (server/on-close channel (fn [status] (println "channel closed, " status)))
-    (loop [id 0]
-      (when (< id 1000)
-        (timer/schedule-task
-         (* id 200) ;; send a message every 200ms
-         (server/send! channel (str "Tick from server #" id) false)) ; false => don't close after send
-        (recur (inc id))))
-    (timer/schedule-task 100000 (server/close channel)))) ;; close in 100s.
-
+   (loop [i 0]
+     (when (< i 1000)
+       (timer/schedule-task
+        (* i 200)
+        (server/send! channel (str "Tick from server: " i) false))
+       (recur (inc i))))))
 (stop)
-
-(require '[compojure.route :refer [resources not-found]])
+(require '[compojure.route :refer [resources]])
 (defroutes webapp
-  (GET "/" req handle-home)
-  (GET "/req" req (str "<pre>" (with-out-str (pprint req)) "</pre>"))
+  (GET "/" req handle-page)
   (GET "/ticker" req handle-ticker)
-  (resources "/")
-  (not-found "NOT FOUND"))
-
+  (resources "/"))
 (def stop (server/run-server (wrap-reload webapp) {:port 8080}))
 
 
