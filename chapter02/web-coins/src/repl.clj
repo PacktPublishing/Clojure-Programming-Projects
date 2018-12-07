@@ -166,3 +166,6 @@
   (GET "/ticker" req handle-ticker))
 
 (def stop (server/run-server (wrap-reload webapp) {:port 8080}))
+
+
+(require 'web-coins.server :reload-all true)
