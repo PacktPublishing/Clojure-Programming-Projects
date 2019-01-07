@@ -205,16 +205,10 @@
 ; fresh REPL session
 
 ;;; server
-(require '[org.httpkit.server :as http]
-         '[ring.middleware.reload :refer [wrap-reload]])
-
 (require '[web-coins.server :as server :reload-all true])
-
-(def stop (http/run-server (wrap-reload server/webapp) {:port 8080}))
-
+(def *server-state (atom {}))
+(server/start! *server-state)
 
 
 
 ;;;
-(def store (atom {:connected-clients {:i-am "alive"}}))
-(server/start! store)
