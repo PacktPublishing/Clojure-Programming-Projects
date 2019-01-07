@@ -14,11 +14,12 @@
 (defonce clients-store
   (atom {}))
 
-(defn register-client
-  [store channel req]
+(defn register-client!
+  [store id ws-channel req]
   (swap! store assoc channel req))
 
-(defn unregister-client
+
+(defn unregister-client!
   [store channel]
   (swap! store dissoc channel))
 

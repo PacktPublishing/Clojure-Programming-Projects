@@ -1,4 +1,4 @@
-(ns repl)
+;;; NOT A NAMESPACE
 
 (require '[cheshire.core :as json]
          '[clojure.set :as set])

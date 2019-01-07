@@ -1,4 +1,3 @@
-(ns repl)
 ;;; REPL sessions log
 
 

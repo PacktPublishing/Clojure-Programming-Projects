@@ -1,4 +1,4 @@
-(ns repl)
+;;;NOT A NAMESPACE
 
 (require '[org.httpkit.server :as server])
 
@@ -54,7 +54,7 @@
   [req]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body (ui/page-home req)})
+   :body (ui/home req)})
 
 
 ;;;ring middleware
@@ -167,5 +167,54 @@
 
 (def stop (server/run-server (wrap-reload webapp) {:port 8080}))
 
+;;; server state
 
-(require 'web-coins.server :reload-all true)
+(stop) ;old server
+
+(def *server-state (atom {}))
+
+(defn start!
+  [*state]
+  (swap! *state
+         (fn [state]
+           (if-let [stop-fn (:stop-fn state)]
+             (println "Server already started.")
+             (assoc state :stop-fn
+                    (server/run-server
+                     (wrap-reload webapp)
+                     {:port 8080})))))
+  (println "Server started."))
+
+(defn stop!
+  [*state]
+  (swap! *state
+         (fn [state]
+           (if-let [stop-fn (:stop-fn state)]
+             (do
+               (stop-fn)
+               (dissoc state :stop-fn))
+             (println "Server already stopped."))))
+  (println "Server stopped."))
+
+(start! *server-state)
+(stop! *server-state)
+
+
+;;; PROJECT
+
+; fresh REPL session
+
+;;; server
+(require '[org.httpkit.server :as http]
+         '[ring.middleware.reload :refer [wrap-reload]])
+
+(require '[web-coins.server :as server :reload-all true])
+
+(def stop (http/run-server (wrap-reload server/webapp) {:port 8080}))
+
+
+
+
+;;;
+(def store (atom {:connected-clients {:i-am "alive"}}))
+(server/start! store)

@@ -8,9 +8,15 @@
 ;
 (ns web-coins.ui
   (:require
+   [cheshire.core :as json]
+   [clojure.edn :as edn]
+   [clojure.set :as set]
    [hiccup.core :refer [html]]
-   [hiccup.page :refer [html5 include-css include-js]]
-   [clojure.edn :as edn]))
+   [hiccup.page :refer [html5 include-css include-js]]))
+
+(defn home
+  [_]
+  (html [:h1 "Home Page"]))
 
 (def img-host
   "https://cryptocompare.com")
